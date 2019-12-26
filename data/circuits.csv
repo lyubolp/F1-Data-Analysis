@@ -1,3 +1,4 @@
+circuitId,circuitRef,name,location,country,lat,lng,alt,url
 1,"albert_park","Albert Park Grand Prix Circuit","Melbourne","Australia",-37.8497,144.968,10,"http://en.wikipedia.org/wiki/Melbourne_Grand_Prix_Circuit"
 2,"sepang","Sepang International Circuit","Kuala Lumpur","Malaysia",2.76083,101.738,\N,"http://en.wikipedia.org/wiki/Sepang_International_Circuit"
 3,"bahrain","Bahrain International Circuit","Sakhir","Bahrain",26.0325,50.5106,\N,"http://en.wikipedia.org/wiki/Bahrain_International_Circuit"
