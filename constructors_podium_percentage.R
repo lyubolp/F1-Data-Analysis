@@ -21,10 +21,11 @@ plot_podium_percentage <- function(period)
                                        & results_df$raceId >= 900 & results_df$raceId <= 968,]$constructorId
     races_entered_constructors <- results_df[results_df$raceId >= 900 & results_df$raceId <= 968,]$constructorId
   }
-  else if(period == 2010)
+  else if(period == 2009)
   {
     winnings_constructor <- results_df[(results_df$positionText == "1" | results_df$positionText == "2" | results_df$positionText == "3")
-                                       & ((results_df$raceId >= 841 & results_df$raceId <= 899)
+                                       & ((results_df$raceId >= 1 & results_df$raceId <= 17)
+                                          |(results_df$raceId >= 841 & results_df$raceId <= 899)
                                           | (results_df$raceId >= 337 & results_df$raceId <= 355))
                                        ,]$constructorId
     
@@ -100,14 +101,14 @@ table_percentage_podium_period <- matrix(plot_win_percentage(1998),nrow=1,byrow=
 colnames(table_percentage_podium_period) <- teams
 
 table_percentage_podium_period <- rbind(table_percentage_podium_period, plot_podium_percentage(2006))
-table_percentage_podium_period <- rbind(table_percentage_podium_period, plot_podium_percentage(2010))
+table_percentage_podium_period <- rbind(table_percentage_podium_period, plot_podium_percentage(2009))
 table_percentage_podium_period <- rbind(table_percentage_podium_period, plot_podium_percentage(2014))
 table_percentage_podium_period <- rbind(table_percentage_podium_period, plot_podium_percentage(2017))
 
 table_percentage_podium_period_scaled <- scale(table_percentage_podium_period, center=FALSE, scale=colSums(table_percentage_podium_period))
 
 barplot(table_percentage_podium_period_scaled, col=rainbow(5), 
-        legend.text = c("1998-2005", "2006-2008","2010-2013", "2014-2016", "2017-2019"), 
+        legend.text = c("1998-2005", "2006-2008","2009-2013", "2014-2016", "2017-2019"), 
         main = 'Колко % от подиумите на даден отбор са през даден период',
         xpd = FALSE, ylim = c(0, 1))
 

@@ -22,9 +22,9 @@ plot_win_percentage <- function(period)
   else if(period == 2009)
   {
     winnings_constructor <- results_df[results_df$positionText == "1" & 
-                                       ((results_df$raceId >= 1 & results_df$raceId <= 17)
-                                        |(results_df$raceId >= 841 & results_df$raceId <= 899)
-                                        | (results_df$raceId >= 337 & results_df$raceId <= 355))
+                                         ((results_df$raceId >= 1 & results_df$raceId <= 17)
+                                          |(results_df$raceId >= 841 & results_df$raceId <= 899)
+                                          | (results_df$raceId >= 337 & results_df$raceId <= 355))
                                        ,]$constructorId
     
     races_entered_constructors <- results_df[(results_df$raceId >= 841 & results_df$raceId <= 899)
@@ -42,6 +42,11 @@ plot_win_percentage <- function(period)
     
     races_entered_constructors <- results_df[results_df$raceId >= 71 & results_df$raceId <= 206,]$constructorId
   }
+  else if(period == 1999)
+  {
+    winnings_constructor <- results_df[results_df$positionText == "1" & results_df$raceId >= 90 & results_df$raceId <= 190,]$constructorId
+    races_entered_constructors <- results_df[results_df$raceId >= 90 & results_df$raceId <= 190,]$constructorId
+  }
   else
   {
     q(1)
@@ -56,7 +61,7 @@ plot_win_percentage <- function(period)
   }
   
   table_constructors_wins <- sort(table(winnings_constructor_label), decreasing = T)
-
+  
   teams_wins<-table_constructors_wins["Ferrari"]
   teams_wins<-c(teams_wins, table_constructors_wins["McLaren"])
   teams_wins<-c(teams_wins, table_constructors_wins["Williams"])
@@ -92,21 +97,20 @@ plot_win_percentage <- function(period)
   teams_wins_percentage_vector
   
 }
+barplot(plot_win_percentage(1999), col=color, 
+        main = '% победи/участия за периода 1999-2004',
+        names.arg = teams,
+        xpd = FALSE, ylim = c(0, 100))
 
-table_percentage_wins_period <- matrix(plot_win_percentage(1998),nrow=1,byrow=FALSE)
-colnames(table_percentage_wins_period) <- teams
+barplot(plot_win_percentage(2009), col=color, 
+        main = '% победи/участия за периода 2009-2013',
+        names.arg = teams,
+        xpd = FALSE, ylim = c(0, 100))
 
-table_percentage_wins_period <- rbind(table_percentage_wins_period, plot_win_percentage(2006))
-table_percentage_wins_period <- rbind(table_percentage_wins_period, plot_win_percentage(2009))
-table_percentage_wins_period <- rbind(table_percentage_wins_period, plot_win_percentage(2014))
-table_percentage_wins_period <- rbind(table_percentage_wins_period, plot_win_percentage(2017))
-
-table_percentage_wins_period_scaled <- scale(table_percentage_wins_period, center=FALSE, scale=colSums(table_percentage_wins_period))
-
-barplot(table_percentage_wins_period_scaled, col=rainbow(5), 
-        legend.text = c("1998-2005", "2006-2008","2010-2013", "2014-2016", "2017-2019"), 
-        main = 'Колко % от победите на даден отбор са през даден период',
-        xpd = FALSE, ylim = c(0, 1))
+barplot(plot_win_percentage(2014), col=color, 
+        main = '% победи/участия за периода 2014-2016',
+        names.arg = teams,
+        xpd = FALSE, ylim = c(0, 100))
 
 
 

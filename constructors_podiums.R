@@ -1,4 +1,10 @@
+results_list<-read.csv('./data/results.csv',sep=',',stringsAsFactors=F)
+constructors_labels<-read.csv('./data/constructors.csv', sep=',', stringsAsFactors = F)
 
+results_df <- as.data.frame(results_list)
+color <- c("#DC0000", "#FF8700", "#FFFFFF", "#00D2BE", "#1E41FF", "#FFF500", "#9B0000", "#F596C8") 
+teams <- c("Ferrari", "McLaren", "Williams", "Mercedes", "Red Bull", "Renault", "Sauber", "Racing Point")
+#Ferrari, McLaren, Williams, Mercedes, Red Bull, Renault, Sauber, Force India
 
 plot_wins <- function(period)
 {
@@ -15,10 +21,11 @@ plot_wins <- function(period)
                                        & results_df$raceId >= 900 & results_df$raceId <= 968,]$constructorId
     races_entered_constructors <- results_df[results_df$raceId >= 900 & results_df$raceId <= 968,]$constructorId
   }
-  else if(period == 2010)
+  else if(period == 2009)
   {
     winnings_constructor <- results_df[(results_df$positionText == "1" | results_df$positionText == "2" | results_df$positionText == "3")
-                                       & ((results_df$raceId >= 841 & results_df$raceId <= 899)
+                                       & ((results_df$raceId >= 1 & results_df$raceId <= 17)
+                                          | (results_df$raceId >= 841 & results_df$raceId <= 899)
                                           | (results_df$raceId >= 337 & results_df$raceId <= 355))
                                        ,]$constructorId
     
@@ -71,12 +78,12 @@ table_wins_period <- matrix(plot_wins(1998),nrow=1,byrow=FALSE)
 colnames(table_wins_period) <- teams
 
 table_wins_period <- rbind(table_wins_period, plot_wins(2006))
-table_wins_period <- rbind(table_wins_period, plot_wins(2010))
+table_wins_period <- rbind(table_wins_period, plot_wins(2009))
 table_wins_period <- rbind(table_wins_period, plot_wins(2014))
 table_wins_period <- rbind(table_wins_period, plot_wins(2017))
 
 
 barplot(table_wins_period, col=rainbow(5), 
-        legend.text = c("1998-2005", "2006-2008","2010-2013", "2014-2016", "2017-2019"), 
+        legend.text = c("1998-2005", "2006-2008","2009-2013", "2014-2016", "2017-2019"), 
         main = 'Колко подиума има даден отбор през даден период',
-        xpd = FALSE, ylim = c(0, 140))
+        xpd = FALSE, ylim = c(0, 400))
